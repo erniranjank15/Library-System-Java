@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	
 	<modelVersion>4.0.0</modelVersion>
+
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -13,7 +17,7 @@
 	<artifactId>library-management-system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>library-management-system</name>
-	<description>Library Management System with Spring Boot and SQLite</description>
+	<description>Library Management System with Spring Boot and PostgreSQL</description>
 
 	<properties>
 		<java.version>17</java.version>
@@ -32,11 +36,17 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
-		<!-- SQLite JDBC driver -->
+		<!-- Spring Boot Data JPA (Hibernate ORM - like SQLAlchemy for Java) -->
 		<dependency>
-			<groupId>org.xerial</groupId>
-			<artifactId>sqlite-jdbc</artifactId>
-			<version>3.45.1.0</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- PostgreSQL JDBC Driver -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- Lombok (reduces boilerplate: @Getter, @Setter, etc.) -->

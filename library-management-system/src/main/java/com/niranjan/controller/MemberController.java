@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * REST Controller for Member operations.
@@ -58,8 +59,8 @@ public class MemberController {
 
     // DELETE /api/members/1
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteMember(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> deleteMember(@PathVariable Long id) {
         memberService.deleteMember(id);
-        return ResponseEntity.ok("Member deleted successfully");
+        return ResponseEntity.ok(Map.of("message", "Member deleted successfully"));
     }
 }

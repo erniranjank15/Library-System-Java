@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
@@ -20,6 +21,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleNotFound(ResourceNotFoundException ex) {
         return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    // Handles "no resource found" (like 404 for static files or invalid paths) -> returns HTTP 404
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleNoResourceFound(NoResourceFoundException ex) {
+        String path = ex.getResourcePath();
+        String message = (path == null || path.trim().isEmpty()) 
+            ? "Resource not found. Check out the available endpoints at /" 
+            : "Resource not found: " + path;
+        return buildResponse(HttpStatus.NOT_FOUND, message);
     }
 
     // Handles "bad request" errors -> returns HTTP 400

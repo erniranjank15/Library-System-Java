@@ -1,13 +1,26 @@
 package com.niranjan.entity;
 
+import jakarta.persistence.*;
+
 /**
  * Represents a library member (a person who can borrow books).
+ * Mapped to 'members' table in PostgreSQL via JPA / Hibernate.
  */
+@Entity
+@Table(name = "members")
 public class Member {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false, unique = true)
     private String email;   // used as a unique contact identifier
+
+    @Column(length = 50)
     private String phone;
 
     public Member() {}
