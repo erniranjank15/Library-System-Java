@@ -1,15 +1,29 @@
 package com.niranjan.entity;
 
+import jakarta.persistence.*;
+
 /**
  * Tracks which member borrowed which book and when.
- * A record is "open" when returnDate is null (book not yet returned).
+ * Mapped to 'borrow_records' table in PostgreSQL via JPA / Hibernate.
  */
+@Entity
+@Table(name = "borrow_records")
 public class BorrowRecord {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "book_id", nullable = false)
     private Long bookId;       // which book was borrowed
+
+    @Column(name = "member_id", nullable = false)
     private Long memberId;     // who borrowed it
+
+    @Column(name = "borrow_date", nullable = false, length = 50)
     private String borrowDate; // e.g. "2024-06-01"
+
+    @Column(name = "return_date", length = 50)
     private String returnDate; // null means book is still borrowed
 
     public BorrowRecord() {}

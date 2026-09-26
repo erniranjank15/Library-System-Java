@@ -21,6 +21,7 @@ import java.util.List;
  *  1. A book must exist and be available to be borrowed.
  *  2. A member must exist to borrow a book.
  *  3. To return a book, the active borrow record must exist.
+ *  4. To delete a borrow record, the user must have admin privileges.
  */
 @Service
 public class BorrowService {
@@ -81,6 +82,25 @@ public class BorrowService {
         return saved;
     }
 
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Return a book.
      * - Finds the active borrow record for this book.
@@ -107,5 +127,42 @@ public class BorrowService {
 
         log.info("Book id={} returned, record id={}", bookId, record.getId());
         return record;
+    }
+
+
+
+    /**
+     * Delete a borrow record.
+     * - Only allowed for admin users (this check is assumed to be done in the controller).
+     * - Deletes the record from the database.
+     */
+
+    public void deleteRecord(Long recordId) {
+        // 1. Check the record exists
+        BorrowRecord record = borrowRepository.findById(recordId)
+                .orElseThrow(() -> new ResourceNotFoundException("Borrow record not found with id: " + recordId));
+
+        // 2. Delete the record
+        borrowRepository.deleteById(recordId);
+
+        log.info("Borrow record id={} deleted", recordId);
+}
+
+
+
+
+    /**
+     * Get a borrow record by book ID.
+     * - Returns the active borrow record for the given book, if it exists.
+     */
+    public BorrowRecord getRecordByBookId(Long bookId) {
+        // 1. Check the book exists
+        if (!bookRepository.existsById(bookId)) {
+            throw new ResourceNotFoundException("Book not found with id: " + bookId);
+        }
+
+        // 2. Find the active borrow record (the one with no return date)
+        return borrowRepository.findActiveByBookId(bookId)
+                .orElseThrow(() -> new BadRequestException("This book is not currently borrowed."));
     }
 }

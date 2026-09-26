@@ -1,0 +1,264 @@
+{
+  "info": {
+    "name": "Library Management System API",
+    "description": "Postman Collection for testing Spring Boot + PostgreSQL Library Management System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8090",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "0. Health & Info",
+      "item": [
+        {
+          "name": "Root - API Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "1. Books",
+      "item": [
+        {
+          "name": "Get All Books",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/books",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "books"]
+            }
+          }
+        },
+        {
+          "name": "Get Book by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/books/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "books", "1"]
+            }
+          }
+        },
+        {
+          "name": "Add New Book",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"The Pragmatic Programmer\",\n  \"author\": \"Andy Hunt, Dave Thomas\",\n  \"isbn\": \"978-0201616224\",\n  \"publishedYear\": 1999\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/books",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "books"]
+            }
+          }
+        },
+        {
+          "name": "Update Book",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"The Pragmatic Programmer (20th Anniversary Edition)\",\n  \"author\": \"Andy Hunt, Dave Thomas\",\n  \"isbn\": \"978-0201616224\",\n  \"publishedYear\": 2019\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/books/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "books", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Book",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/books/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "books", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Members",
+      "item": [
+        {
+          "name": "Get All Members",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/members",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members"]
+            }
+          }
+        },
+        {
+          "name": "Get Member by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/members/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", "1"]
+            }
+          }
+        },
+        {
+          "name": "Add New Member",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sarah Connor\",\n  \"email\": \"sarah.connor@example.com\",\n  \"phone\": \"987-654-3210\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/members",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members"]
+            }
+          }
+        },
+        {
+          "name": "Update Member",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sarah Connor Updated\",\n  \"email\": \"sarah.connor@example.com\",\n  \"phone\": \"999-888-7777\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/members/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Member",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/members/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Borrow & Return",
+      "item": [
+        {
+          "name": "Borrow Book (Book 1 by Member 1)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/borrow/book/1/member/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "borrow", "book", "1", "member", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Active Borrow Record for Book 1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/borrow/book/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "borrow", "book", "1"]
+            }
+          }
+        },
+        {
+          "name": "Return Book 1",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/borrow/return/book/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "borrow", "return", "book", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get All Borrow History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/borrow",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "borrow"]
+            }
+          }
+        },
+        {
+          "name": "Delete Borrow Record by ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/borrow/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "borrow", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,17 +1,33 @@
 package com.niranjan.entity;
 
+import jakarta.persistence.*;
+
 /**
  * Represents a book in the library.
- * Each book has a unique ID, title, author, ISBN, and publication year.
+ * Mapped to 'books' table in PostgreSQL via JPA / Hibernate.
  */
+@Entity
+@Table(name = "books")
 public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String author;
+
+    @Column(unique = true)
     private String isbn;    // International Standard Book Number (unique book identifier)
+
+    @Column(name = "published_year")
     private int publishedYear;
-    private boolean available; // true = book is on the shelf, false = borrowed
+
+    @Column(nullable = false)
+    private boolean available = true; // true = book is on the shelf, false = borrowed
 
     public Book() {}
 

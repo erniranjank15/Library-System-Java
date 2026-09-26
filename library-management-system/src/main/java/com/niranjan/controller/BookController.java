@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * REST Controller for Book operations.
@@ -58,8 +59,8 @@ public class BookController {
 
     // DELETE /api/books/1
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteBook(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
-        return ResponseEntity.ok("Book deleted successfully");
+        return ResponseEntity.ok(Map.of("message", "Book deleted successfully"));
     }
 }
